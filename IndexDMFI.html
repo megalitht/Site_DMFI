@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DMFI — Intranet Officiel</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Share+Tech+Mono&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --blue:       #1565c0;
+      --blue-dark:  #0d47a1;
+      --blue-light: #1976d2;
+      --accent:     #2196f3;
+      --gold:       #ffc107;
+      --bg:         #f0f2f5;
+      --bg-white:   #ffffff;
+      --text:       #1a1a1a;
+      --text-light: #555;
+      --nav-bg:     #ffffff;
+      --bar-bg:     #0d1b2a;
+      --border:     #d0dbe8;
+      --mono:       'Share Tech Mono', monospace;
+      --sans:       'Barlow', sans-serif;
+      --display:    'Rajdhani', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 15px;
+    }
+
+    /* ─── TOP BAR ─── */
+    .topbar {
+      background: var(--bar-bg);
+      color: #aaa;
+      font-size: 11px;
+      font-family: var(--mono);
+      padding: 4px 20px;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 16px;
+      letter-spacing: .04em;
+      border-bottom: 1px solid #1a3a5c;
+    }
+    .topbar span { color: #5a7a9a; }
+    .topbar strong { color: #90caf9; }
+    .topbar .fr-flag { display: flex; gap: 2px; align-items: center; }
+    .topbar .fr-flag span { display: inline-block; width: 8px; height: 12px; }
+    .topbar .fr-flag .bl { background: #002395; }
+    .topbar .fr-flag .wh { background: #fff; }
+    .topbar .fr-flag .rd { background: #ED2939; }
+
+    /* ─── NAVBAR ─── */
+    nav {
+      background: var(--nav-bg);
+      border-bottom: 3px solid var(--blue-dark);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      height: 60px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 3px 12px rgba(13,71,161,.18);
+    }
+    .nav-hamburger {
+      font-size: 20px;
+      cursor: pointer;
+      margin-right: 14px;
+      color: var(--text);
+      padding: 6px;
+      user-select: none;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-right: 28px;
+      text-decoration: none;
+    }
+    .nav-logo-icon {
+      width: 42px; height: 42px; border-radius: 50%;
+      background: var(--bar-bg); border: 2px solid var(--blue);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--display); font-size: 12px; font-weight: 700;
+      color: var(--gold); letter-spacing: .04em;
+      box-shadow: 0 0 10px rgba(33,150,243,.3);
+    }
+    .nav-logo-text { line-height: 1.1; }
+    .nav-logo-title { font-family: var(--display); font-size: 18px; font-weight: 700; color: var(--text); letter-spacing: .05em; }
+    .nav-logo-sub { font-size: 10px; color: var(--text-light); letter-spacing: .08em; text-transform: uppercase; }
+    .nav-links { display: flex; gap: 2px; flex: 1; }
+    .nav-links a {
+      text-decoration: none; font-family: var(--display); font-size: 12px;
+      font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+      color: var(--text); padding: 0 14px; height: 60px;
+      display: flex; align-items: center; border-bottom: 3px solid transparent;
+      transition: color .2s, border-color .2s, background .2s;
+    }
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--blue); border-bottom-color: var(--blue-dark);
+      background: rgba(21,101,192,.06);
+    }
+    .nav-icons { display: flex; gap: 6px; margin-left: auto; }
+    .nav-icons button {
+      background: none; border: none; cursor: pointer;
+      width: 36px; height: 36px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; color: var(--text-light); transition: background .2s;
+    }
+    .nav-icons button:hover { background: #eef3f8; }
+
+    /* ─── CAROUSEL ─── */
+    .carousel { position: relative; width: 100%; height: 240px; overflow: hidden; background: #060f1a; }
+    .carousel-track { display: flex; height: 100%; transition: transform .6s ease; }
+    .carousel-slide { min-width: 100%; height: 100%; position: relative; overflow: hidden; }
+    .carousel-btn {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      background: rgba(0,0,0,.45); color: #fff;
+      border: 1px solid rgba(255,255,255,.25); width: 36px; height: 36px;
+      border-radius: 50%; cursor: pointer; font-size: 16px;
+      display: flex; align-items: center; justify-content: center;
+      z-index: 10; transition: background .2s;
+    }
+    .carousel-btn:hover { background: rgba(13,71,161,.75); }
+    .carousel-btn.prev { left: 14px; }
+    .carousel-btn.next { right: 14px; }
+    .carousel-dots {
+      position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%);
+      display: flex; gap: 6px; z-index: 10;
+    }
+    .carousel-dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      background: rgba(255,255,255,.35); border: 1px solid rgba(255,255,255,.5);
+      cursor: pointer; transition: background .2s;
+    }
+    .carousel-dot.active { background: var(--gold); border-color: var(--gold); }
+
+    /* ─── QUICK ACTIONS ─── */
+    .quick-actions {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      background: var(--bar-bg); padding: 16px 16px;
+      border-bottom: 2px solid #1a3a5c;
+    }
+    .qa-btn {
+      background: var(--blue-dark); color: #fff; border: 1px solid #1976d2;
+      cursor: pointer; padding: 13px 20px;
+      font-family: var(--display); font-size: 12px;
+      font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      margin: 5px; border-radius: 4px;
+      transition: background .2s, transform .1s; text-decoration: none;
+    }
+    .qa-btn:hover { background: var(--blue-light); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(21,101,192,.4); }
+    .qa-btn .arrow { font-size: 15px; opacity: .85; }
+
+    /* ─── PAGE WRAP ─── */
+    .page-wrap { max-width: 1200px; margin: 0 auto; padding: 0 16px 40px; }
+
+    /* ─── SECTION HEADER ─── */
+    .section-header {
+      background: linear-gradient(90deg, var(--blue-dark), var(--blue-light));
+      color: #fff;
+      font-family: var(--display); font-size: 16px; font-weight: 700;
+      letter-spacing: .25em; text-transform: uppercase; text-align: center;
+      padding: 11px 20px; margin: 24px 0 0;
+      border-radius: 4px 4px 0 0;
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+    }
+    .section-header::before, .section-header::after {
+      content: ''; flex: 1; height: 1px;
+      background: rgba(255,255,255,.25); max-width: 80px;
+    }
+
+    /* ─── ACCORDION ─── */
+    .accordion {
+      border: 1px solid var(--border); border-top: none;
+      background: var(--bg-white); margin-bottom: 20px;
+      border-radius: 0 0 4px 4px; overflow: hidden;
+    }
+    .accordion-header {
+      background: #1a2a3a; color: #fff;
+      font-family: var(--display); font-size: 13px; font-weight: 600;
+      letter-spacing: .1em; padding: 10px 20px; cursor: pointer;
+      display: flex; align-items: center; justify-content: space-between;
+      user-select: none; transition: background .2s; text-transform: uppercase;
+    }
+    .accordion-header:hover { background: #243545; }
+    .accordion-header .caret { font-size: 12px; transition: transform .3s; }
+    .accordion-header.open .caret { transform: rotate(180deg); }
+    .accordion-body { padding: 28px 32px; display: none; }
+    .accordion-body.open { display: block; }
+    .accordion-body h2 {
+      font-family: var(--display); font-size: 22px; font-weight: 700;
+      color: var(--blue-dark); margin-bottom: 16px; text-align: center;
+      letter-spacing: .05em; text-transform: uppercase;
+    }
+    .accordion-body p { font-size: 14px; line-height: 1.85; color: #333; margin-bottom: 14px; }
+    .accordion-body a { color: var(--accent); text-decoration: none; font-weight: 500; }
+    .accordion-body a:hover { text-decoration: underline; }
+    .accordion-body .grade-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+    .grade-badge {
+      background: var(--blue-dark); color: #fff; font-family: var(--mono);
+      font-size: 11px; padding: 4px 12px; border-radius: 2px; letter-spacing: .06em;
+    }
+    .grade-badge.high { background: var(--gold); color: #000; }
+    .grade-badge.mid { background: #1565c0; }
+    .grade-badge.low { background: #37474f; }
+
+    /* ─── INFO GRID ─── */
+    .info-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 20px; }
+
+    .info-card {
+      background: var(--bg-white);
+      border: 1px solid var(--border);
+      border-top: 4px solid var(--blue-dark);
+      border-left: 1px solid var(--border);
+      padding: 20px 18px;
+      border-radius: 4px;
+      box-shadow: 0 3px 14px rgba(13,71,161,.07);
+      transition: box-shadow .25s, transform .25s;
+    }
+    .info-card:hover {
+      box-shadow: 0 8px 28px rgba(13,71,161,.15);
+      transform: translateY(-3px);
+    }
+    .info-card h3 {
+      font-family: var(--display); font-size: 14px; font-weight: 700;
+      letter-spacing: .1em; text-transform: uppercase;
+      color: var(--blue-dark); margin-bottom: 10px; padding-bottom: 8px;
+      border-bottom: 2px solid #d0e4f7;
+    }
+    .info-card ul { list-style: none; padding: 0; }
+    .info-card ul li {
+      font-size: 13px; color: #444; padding: 6px 0;
+      border-bottom: 1px dashed #ddeaf5;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .info-card ul li:last-child { border-bottom: none; }
+    .info-card ul li::before { content: '›'; color: var(--blue); font-size: 16px; font-weight: 700; }
+    .info-card ul li a { color: var(--accent); text-decoration: none; }
+    .info-card ul li a:hover { text-decoration: underline; }
+
+    /* ─── ALERT BAND ─── */
+    .alert-band {
+      background: linear-gradient(90deg, #0d47a1, #1565c0);
+      color: #fff;
+      font-family: var(--mono); font-size: 12px; letter-spacing: .05em;
+      padding: 9px 20px; display: flex; align-items: center; gap: 12px;
+      margin: 20px 0; border-radius: 4px;
+      border: 1px solid #1976d2;
+    }
+    .alert-band.warning {
+      background: linear-gradient(90deg, #b71c1c, #c62828);
+    }
+    .alert-band .tag {
+      background: rgba(255,255,255,.2); padding: 3px 10px;
+      border-radius: 2px; font-weight: 700; letter-spacing: .1em; white-space: nowrap;
+    }
+
+    /* ─── TACT LINE ─── */
+    .tact-line { height: 2px; background: linear-gradient(90deg, transparent, var(--blue-dark), transparent); margin: 4px 0; }
+
+    /* ─── STATS ROW ─── */
+    .stats-row {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 14px; margin: 20px 0;
+    }
+    .stat-card {
+      background: var(--bar-bg); color: #fff;
+      padding: 18px 16px; border-radius: 4px;
+      border-left: 4px solid var(--blue);
+      text-align: center;
+    }
+    .stat-card .val {
+      font-family: var(--display); font-size: 30px; font-weight: 700;
+      color: var(--gold); line-height: 1;
+    }
+    .stat-card .lbl {
+      font-family: var(--mono); font-size: 10px; color: #7a9cbf;
+      letter-spacing: .1em; text-transform: uppercase; margin-top: 5px;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--bar-bg); color: #5a7a9a; font-size: 12px;
+      font-family: var(--mono); padding: 24px; text-align: center;
+      border-top: 3px solid var(--blue-dark); margin-top: 40px;
+    }
+    footer strong { color: #90caf9; }
+    footer .footer-links { display: flex; justify-content: center; gap: 20px; margin-bottom: 12px; flex-wrap: wrap; }
+    footer .footer-links a { color: #5a7a9a; text-decoration: none; letter-spacing: .05em; transition: color .2s; }
+    footer .footer-links a:hover { color: var(--accent); }
+    footer .fr-stripe { display: flex; justify-content: center; gap: 2px; margin-bottom: 10px; }
+    footer .fr-stripe span { display: inline-block; height: 4px; width: 60px; }
+
+    /* ─── SIDEBAR OVERLAY ─── */
+    .sidebar-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,.55);
+      z-index: 200; opacity: 0; pointer-events: none; transition: opacity .3s;
+    }
+    .sidebar-overlay.open { opacity: 1; pointer-events: all; }
+
+    /* ─── SIDEBAR ─── */
+    .sidebar {
+      position: fixed; top: 0; left: 0; width: 270px; height: 100vh;
+      background: #0d1b2a; z-index: 300;
+      transform: translateX(-100%);
+      transition: transform .32s cubic-bezier(.4,0,.2,1);
+      display: flex; flex-direction: column; overflow-y: auto;
+      border-right: 2px solid #1a3a5c;
+    }
+    .sidebar.open { transform: translateX(0); }
+    .sidebar-head {
+      background: #060f1a; padding: 14px 16px 12px;
+      display: flex; align-items: center; gap: 10px;
+      border-bottom: 2px solid var(--blue-dark); flex-shrink: 0;
+    }
+    .sidebar-head-icon {
+      width: 38px; height: 38px; border-radius: 50%;
+      background: #0d1b2a; border: 2px solid var(--blue);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--display); font-size: 12px; font-weight: 700;
+      color: var(--gold); flex-shrink: 0;
+    }
+    .sidebar-head-text { line-height: 1.15; }
+    .sidebar-head-title { font-family: var(--display); font-size: 16px; font-weight: 700; color: #fff; letter-spacing: .05em; }
+    .sidebar-head-sub { font-size: 9px; color: #5a7a9a; letter-spacing: .08em; text-transform: uppercase; }
+    .sidebar-close {
+      margin-left: auto; background: none; border: none; color: #5a7a9a;
+      font-size: 20px; cursor: pointer; padding: 4px; border-radius: 4px;
+      transition: color .2s, background .2s;
+    }
+    .sidebar-close:hover { color: #fff; background: rgba(255,255,255,.08); }
+    .sidebar-icons {
+      display: flex; justify-content: center; gap: 8px;
+      padding: 12px 16px; background: #0a1520; border-bottom: 1px solid #1a3a5c;
+    }
+    .sidebar-icon-btn {
+      width: 36px; height: 36px; border-radius: 4px;
+      background: #1a2a3a; border: 1px solid #243545;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 15px; cursor: pointer; transition: background .2s, border-color .2s; color: #7a9cbf;
+    }
+    .sidebar-icon-btn:hover { background: var(--blue-dark); border-color: var(--blue); color: #fff; }
+    .sidebar-section {
+      font-family: var(--display); font-size: 10px; font-weight: 700;
+      letter-spacing: .15em; text-transform: uppercase; color: #3a6a9a;
+      padding: 14px 16px 6px; background: #0a1520; border-top: 1px solid #1a3a5c;
+    }
+    .sidebar-link {
+      display: block; padding: 9px 20px; font-size: 13px;
+      font-family: var(--sans); color: #7a9cbf; text-decoration: none;
+      border-left: 3px solid transparent;
+      transition: background .18s, color .18s, border-color .18s; background: #0d1b2a;
+    }
+    .sidebar-link:hover { background: rgba(21,101,192,.2); color: #fff; border-left-color: var(--blue); }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 768px) {
+      .quick-actions { grid-template-columns: 1fr; }
+      .info-grid { grid-template-columns: 1fr; }
+      .stats-row { grid-template-columns: repeat(2,1fr); }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- SIDEBAR OVERLAY -->
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-head">
+    <div class="sidebar-head-icon">DMFI</div>
+    <div class="sidebar-head-text">
+      <div class="sidebar-head-title">DMFI</div>
+      <div class="sidebar-head-sub">Détachement Militaire Français Indépendant</div>
+    </div>
+    <button class="sidebar-close" onclick="closeSidebar()">&#10005;</button>
+  </div>
+
+  <div class="sidebar-icons">
+    <button class="sidebar-icon-btn" title="Accueil">🏠</button>
+    <button class="sidebar-icon-btn" title="Personnel">👤</button>
+    <button class="sidebar-icon-btn" title="Opérations">🎯</button>
+    <button class="sidebar-icon-btn" title="Carte BRM5">🗺️</button>
+    <button class="sidebar-icon-btn" title="Armurerie">🔫</button>
+    <button class="sidebar-icon-btn" title="Paramètres">⚙️</button>
+    <button class="sidebar-icon-btn" title="Retour">↩️</button>
+  </div>
+
+  <div class="sidebar-section">Bien débuter</div>
+  <a href="#" class="sidebar-link">Présentation de la DMFI</a>
+  <a href="#" class="sidebar-link">Règlement intérieur</a>
+  <a href="#" class="sidebar-link">Rejoindre la faction</a>
+  <a href="#" class="sidebar-link">Créer une page membre</a>
+
+  <div class="sidebar-section">Opérations</div>
+  <a href="#" class="sidebar-link">Tableau des missions</a>
+  <a href="#" class="sidebar-link">Carte de Ronograd</a>
+  <a href="#" class="sidebar-link">Rapports d'opérations</a>
+  <a href="#" class="sidebar-link">Historique des batailles</a>
+
+  <div class="sidebar-section">Structure</div>
+  <a href="#" class="sidebar-link">État-Major</a>
+  <a href="#" class="sidebar-link">Unités d'infanterie</a>
+  <a href="#" class="sidebar-link">Unités spécialisées</a>
+  <a href="#" class="sidebar-link">Soutien logistique</a>
+  <a href="#" class="sidebar-link">Recrutement</a>
+
+  <div class="sidebar-section">Ressources</div>
+  <a href="#" class="sidebar-link">Armurerie &amp; Équipements</a>
+  <a href="#" class="sidebar-link">Guides tactiques</a>
+  <a href="#" class="sidebar-link">Annuaire du personnel</a>
+  <a href="#" class="sidebar-link">Médias &amp; TikTok</a>
+</aside>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <span>DMFI — RÉSEAU INTERNE SÉCURISÉ</span>
+  <div class="fr-flag">
+    <span class="bl"></span><span class="wh"></span><span class="rd"></span>
+  </div>
+  <strong>DÉTACHEMENT MILITAIRE FRANÇAIS INDÉPENDANT</strong>
+  <span>ACCÈS RÉSERVÉ AUX MEMBRES</span>
+</div>
+
+<!-- NAVBAR -->
+<nav>
+  <div class="nav-hamburger" onclick="openSidebar()">&#9776;</div>
+  <a class="nav-logo" href="#">
+    <div class="nav-logo-icon">DMFI</div>
+    <div class="nav-logo-text">
+      <div class="nav-logo-title">D.M.F.I.</div>
+      <div class="nav-logo-sub">Détachement Militaire Français Indépendant</div>
+    </div>
+  </a>
+  <div class="nav-links">
+    <a href="#" class="active">Accueil</a>
+    <a href="#">Opérations</a>
+    <a href="#">Structure</a>
+    <a href="#">Recrutement</a>
+    <a href="#">À Propos</a>
+  </div>
+  <div class="nav-icons">
+    <button title="Rechercher">🔍</button>
+    <button title="Mon profil">👤</button>
+  </div>
+</nav>
+
+<!-- CAROUSEL -->
+<div class="carousel">
+  <div class="carousel-track" id="carouselTrack">
+
+    <!-- Slide 1 -->
+    <div class="carousel-slide">
+      <svg width="100%" height="100%" viewBox="0 0 1200 240" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+        <rect width="1200" height="240" fill="#060f1a"/>
+        <defs><linearGradient id="g1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#0d47a1"/><stop offset="100%" stop-color="#1565c0" stop-opacity=".3"/></linearGradient></defs>
+        <rect width="1200" height="240" fill="url(#g1)" opacity=".9"/>
+        <!-- Tricolore subtle -->
+        <rect x="0" y="0" width="10" height="240" fill="#002395" opacity=".5"/>
+        <rect x="10" y="0" width="10" height="240" fill="#ffffff" opacity=".2"/>
+        <rect x="20" y="0" width="10" height="240" fill="#ED2939" opacity=".4"/>
+        <rect x="1170" y="0" width="10" height="240" fill="#002395" opacity=".5"/>
+        <rect x="1180" y="0" width="10" height="240" fill="#ffffff" opacity=".2"/>
+        <rect x="1190" y="0" width="10" height="240" fill="#ED2939" opacity=".4"/>
+        <text x="600" y="105" text-anchor="middle" fill="rgba(255,255,255,0.07)" font-family="Rajdhani,sans-serif" font-size="72" font-weight="700" letter-spacing="18">DMFI</text>
+        <text x="600" y="148" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="Rajdhani,sans-serif" font-size="22" font-weight="700" letter-spacing="6">DÉTACHEMENT MILITAIRE FRANÇAIS INDÉPENDANT</text>
+        <text x="600" y="178" text-anchor="middle" fill="rgba(255,193,7,0.5)" font-family="Share Tech Mono,monospace" font-size="13" letter-spacing="5">HONNEUR — DISCIPLINE — FRANCE</text>
+        <rect x="350" y="130" width="500" height="2" fill="rgba(255,193,7,.3)"/>
+      </svg>
+    </div>
+
+    <!-- Slide 2 -->
+    <div class="carousel-slide">
+      <svg width="100%" height="100%" viewBox="0 0 1200 240" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+        <rect width="1200" height="240" fill="#07101e"/>
+        <defs><radialGradient id="g2" cx="50%" cy="50%"><stop offset="0%" stop-color="#1565c0" stop-opacity=".4"/><stop offset="100%" stop-color="#060f1a" stop-opacity="0"/></radialGradient></defs>
+        <rect width="1200" height="240" fill="url(#g2)"/>
+        <line x1="0" y1="60" x2="1200" y2="60" stroke="rgba(33,150,243,.1)" stroke-width="1"/>
+        <line x1="0" y1="120" x2="1200" y2="120" stroke="rgba(33,150,243,.1)" stroke-width="1"/>
+        <line x1="0" y1="180" x2="1200" y2="180" stroke="rgba(33,150,243,.1)" stroke-width="1"/>
+        <line x1="300" y1="0" x2="300" y2="240" stroke="rgba(33,150,243,.08)" stroke-width="1"/>
+        <line x1="600" y1="0" x2="600" y2="240" stroke="rgba(33,150,243,.08)" stroke-width="1"/>
+        <line x1="900" y1="0" x2="900" y2="240" stroke="rgba(33,150,243,.08)" stroke-width="1"/>
+        <circle cx="600" cy="120" r="80" fill="none" stroke="rgba(33,150,243,.2)" stroke-width="2"/>
+        <circle cx="600" cy="120" r="55" fill="none" stroke="rgba(33,150,243,.15)" stroke-width="1"/>
+        <circle cx="600" cy="120" r="30" fill="none" stroke="rgba(255,193,7,.2)" stroke-width="1.5"/>
+        <text x="600" y="127" text-anchor="middle" fill="rgba(255,193,7,.5)" font-family="Rajdhani,sans-serif" font-size="28" font-weight="700" letter-spacing="2">DMFI</text>
+        <text x="600" y="190" text-anchor="middle" fill="rgba(255,255,255,.15)" font-family="Share Tech Mono,monospace" font-size="11" letter-spacing="5">BRM5 — RONOGRAD — FRANCE</text>
+      </svg>
+    </div>
+
+    <!-- Slide 3 -->
+    <div class="carousel-slide">
+      <svg width="100%" height="100%" viewBox="0 0 1200 240" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+        <rect width="1200" height="240" fill="#091422"/>
+        <defs><linearGradient id="g3" x1="0" y1="1" x2="1" y2="0"><stop offset="0%" stop-color="#0d47a1" stop-opacity=".7"/><stop offset="100%" stop-color="#1565c0" stop-opacity=".1"/></linearGradient></defs>
+        <rect width="1200" height="240" fill="url(#g3)"/>
+        <polygon points="0,240 450,0 900,240" fill="rgba(21,101,192,.08)"/>
+        <polygon points="300,0 1100,240 1200,100" fill="rgba(13,71,161,.12)"/>
+        <text x="80" y="160" fill="rgba(255,255,255,.05)" font-family="Rajdhani,sans-serif" font-size="130" font-weight="700">FR</text>
+        <rect x="0" y="100" width="1200" height="44" fill="rgba(0,0,0,.35)"/>
+        <text x="600" y="129" text-anchor="middle" fill="rgba(255,255,255,.55)" font-family="Rajdhani,sans-serif" font-size="22" letter-spacing="8">UNITÉ D'ÉLITE — RONOGRAD — BLACKHAWK RESCUE MISSION 5</text>
+      </svg>
+    </div>
+
+    <!-- Slide 4 -->
+    <div class="carousel-slide">
+      <svg width="100%" height="100%" viewBox="0 0 1200 240" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+        <rect width="1200" height="240" fill="#050d18"/>
+        <defs><linearGradient id="g4" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#1a237e" stop-opacity=".9"/><stop offset="100%" stop-color="#0d47a1" stop-opacity=".3"/></linearGradient></defs>
+        <rect width="1200" height="240" fill="url(#g4)"/>
+        <rect x="0" y="0" width="3" height="240" fill="#002395"/>
+        <rect x="3" y="0" width="3" height="240" fill="#fff" opacity=".7"/>
+        <rect x="6" y="0" width="3" height="240" fill="#ED2939"/>
+        <text x="600" y="100" text-anchor="middle" fill="rgba(255,255,255,.15)" font-family="Share Tech Mono,monospace" font-size="13" letter-spacing="4">INTRANET DMFI — ACCÈS MEMBRES</text>
+        <text x="600" y="145" text-anchor="middle" fill="rgba(255,255,255,.55)" font-family="Rajdhani,sans-serif" font-size="38" font-weight="700" letter-spacing="7">DÉTACHEMENT MILITAIRE</text>
+        <text x="600" y="178" text-anchor="middle" fill="rgba(255,193,7,.55)" font-family="Rajdhani,sans-serif" font-size="38" font-weight="700" letter-spacing="7">FRANÇAIS INDÉPENDANT</text>
+      </svg>
+    </div>
+
+  </div>
+  <button class="carousel-btn prev" id="prevBtn">&#8249;</button>
+  <button class="carousel-btn next" id="nextBtn">&#8250;</button>
+  <div class="carousel-dots" id="carouselDots">
+    <div class="carousel-dot active" data-i="0"></div>
+    <div class="carousel-dot" data-i="1"></div>
+    <div class="carousel-dot" data-i="2"></div>
+    <div class="carousel-dot" data-i="3"></div>
+  </div>
+</div>
+
+<!-- QUICK ACTIONS -->
+<div class="quick-actions">
+  <a href="#" class="qa-btn"><span class="arrow">›</span> Tout savoir sur la DMFI</a>
+  <a href="#" class="qa-btn"><span class="arrow">›</span> Rejoindre la faction</a>
+  <a href="#" class="qa-btn"><span class="arrow">›</span> Consulter la carte de Ronograd</a>
+</div>
+
+<div class="tact-line"></div>
+
+<!-- MAIN PAGE WRAP -->
+<div class="page-wrap">
+
+  <div class="alert-band">
+    <span class="tag">STATUT</span>
+    DMFI opérationnelle — Recrutement ouvert — Prochaine opération : à confirmer sur Discord
+  </div>
+
+  <!-- STATS ROW -->
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="val">🇫🇷</div>
+      <div class="lbl">Faction française</div>
+    </div>
+    <div class="stat-card">
+      <div class="val" style="font-size:22px;">BRM5</div>
+      <div class="lbl">Blackhawk Rescue Mission 5</div>
+    </div>
+    <div class="stat-card">
+      <div class="val" style="font-size:22px;">OPFI</div>
+      <div class="lbl">Opérations fréquentes</div>
+    </div>
+    <div class="stat-card">
+      <div class="val" style="font-size:22px;">INDEP</div>
+      <div class="lbl">Faction indépendante</div>
+    </div>
+  </div>
+
+  <div class="section-header">Page d'orientation — Personnel DMFI</div>
+
+  <div class="accordion">
+    <div class="accordion-header open" id="acc1-header" onclick="toggleAcc('acc1')">
+      Préambule <span class="caret open" id="acc1-caret">▼</span>
+    </div>
+    <div class="accordion-body open" id="acc1-body">
+      <h2>Bienvenue sur l'intranet de la DMFI !</h2>
+      <p>Bienvenue au sein du <strong>Détachement Militaire Français Indépendant</strong>. Cet intranet est le hub central de notre faction sur le jeu <strong>Blackhawk Rescue Mission 5 (BRM5)</strong> sur Roblox, diffusé sur TikTok.</p>
+      <p>La DMFI est une faction française indépendante, organisée et disciplinée. Notre objectif : mener des opérations militaires coordonnées sur l'île de Ronograd, faire grandir notre communauté et représenter fièrement les couleurs françaises dans l'univers de BRM5.</p>
+      <p>Tu es nouveau membre ? Consulte le <a href="#">guide d'accueil</a> pour toutes les informations essentielles, et rejoins notre <a href="#">Discord</a> pour rester connecté avec l'équipe.</p>
+    </div>
+  </div>
+
+  <div class="accordion">
+    <div class="accordion-header" id="acc2-header" onclick="toggleAcc('acc2')">
+      Règlement &amp; Code de conduite <span class="caret" id="acc2-caret">▼</span>
+    </div>
+    <div class="accordion-body" id="acc2-body">
+      <h2>Code de conduite DMFI</h2>
+      <p>Tout membre de la DMFI s'engage à respecter les règles suivantes :</p>
+      <p><strong>① Discipline</strong> — Respecter la chaîne de commandement et les ordres donnés lors des opérations.</p>
+      <p><strong>② Loyauté</strong> — Ne pas rejoindre de faction ennemie ou adverse sans accord préalable de l'État-Major.</p>
+      <p><strong>③ Respect</strong> — Aucune insulte, aucun comportement toxique envers les membres ou les adversaires.</p>
+      <p><strong>④ Activité</strong> — Participer régulièrement aux opérations et signaler toute absence prolongée.</p>
+      <p><strong>⑤ Représentation</strong> — En jeu et sur TikTok, représenter la DMFI avec honneur et professionnalisme.</p>
+      <p>Toute violation grave peut entraîner un avertissement, une rétrogradation ou une exclusion définitive.</p>
+    </div>
+  </div>
+
+  <div class="accordion">
+    <div class="accordion-header" id="acc3-header" onclick="toggleAcc('acc3')">
+      Grades &amp; Hiérarchie <span class="caret" id="acc3-caret">▼</span>
+    </div>
+    <div class="accordion-body" id="acc3-body">
+      <h2>Hiérarchie de la DMFI</h2>
+      <p>La DMFI est structurée autour d'une hiérarchie militaire claire. Chaque grade reflète l'expérience, l'implication et les compétences du membre.</p>
+      <div class="grade-list">
+        <span class="grade-badge high">Commandant</span>
+        <span class="grade-badge high">Lieutenant-Colonel</span>
+        <span class="grade-badge mid">Capitaine</span>
+        <span class="grade-badge mid">Lieutenant</span>
+        <span class="grade-badge mid">Sergent-Chef</span>
+        <span class="grade-badge mid">Sergent</span>
+        <span class="grade-badge low">Caporal-Chef</span>
+        <span class="grade-badge low">Caporal</span>
+        <span class="grade-badge low">Soldat de 1ère classe</span>
+        <span class="grade-badge low">Recrue</span>
+      </div>
+      <p style="margin-top:16px;">Les promotions sont décidées par l'État-Major en fonction des performances en opérations et de l'implication globale dans la faction.</p>
+    </div>
+  </div>
+
+  <div class="accordion">
+    <div class="accordion-header" id="acc4-header" onclick="toggleAcc('acc4')">
+      Actualités &amp; Opérations récentes <span class="caret" id="acc4-caret">▼</span>
+    </div>
+    <div class="accordion-body" id="acc4-body">
+      <h2>Dernières nouvelles</h2>
+      <p>Retrouvez ici les derniers communiqués, résultats d'opérations et annonces de l'État-Major de la DMFI.</p>
+      <p>Pour tout signalement urgent ou pour contacter un officier, utilisez le canal approprié sur notre <a href="#">serveur Discord</a>.</p>
+      <p>Les clips et highlights des opérations sont publiés régulièrement sur notre <a href="#">compte TikTok</a>.</p>
+    </div>
+  </div>
+
+  <!-- INFO GRID -->
+  <div class="info-grid">
+    <div class="info-card">
+      <h3>🏢 Structure</h3>
+      <ul>
+        <li><a href="#">État-Major DMFI</a></li>
+        <li><a href="#">Unités d'infanterie</a></li>
+        <li><a href="#">Unités spécialisées</a></li>
+        <li><a href="#">Soutien logistique</a></li>
+        <li><a href="#">Section recrutement</a></li>
+      </ul>
+    </div>
+    <div class="info-card">
+      <h3>📋 Ressources</h3>
+      <ul>
+        <li><a href="#">Carte de Ronograd</a></li>
+        <li><a href="#">Armurerie &amp; Loadouts</a></li>
+        <li><a href="#">Annuaire des membres</a></li>
+        <li><a href="#">Rapports d'opérations</a></li>
+        <li><a href="#">Guides tactiques BRM5</a></li>
+      </ul>
+    </div>
+    <div class="info-card">
+      <h3>⚠️ Contacts urgents</h3>
+      <ul>
+        <li>État-Major — Discord #etat-major</li>
+        <li>Recrutement — Discord #recrutement</li>
+        <li>Opérations — Discord #ops</li>
+        <li>Médias/TikTok — Discord #media</li>
+        <li><a href="#">Signaler un incident</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-header" style="margin-top:30px;">Informations sur la faction</div>
+  <div class="accordion">
+    <div class="accordion-header open" id="acc5-header" onclick="toggleAcc('acc5')">
+      Présentation de la DMFI <span class="caret open" id="acc5-caret">▼</span>
+    </div>
+    <div class="accordion-body open" id="acc5-body">
+      <p>Le <strong>Détachement Militaire Français Indépendant (DMFI)</strong> est une faction organisée sur le jeu <strong>Blackhawk Rescue Mission 5</strong> (BRM5) sur Roblox. Diffusée et mise en valeur sur <strong>TikTok</strong>, la DMFI rassemble des joueurs francophones passionnés de milsim et de jeu tactique.</p>
+      <p>Notre force réside dans notre organisation, notre cohésion et notre identité française. Nous opérons sur l'île de Ronograd avec discipline, menant des missions coordonnées, des prises de position stratégiques et des opérations offensives planifiées.</p>
+      <p>Pour en savoir plus sur notre histoire, nos alliances et nos objectifs, rendez-vous dans la rubrique <a href="#">À Propos</a> de cet intranet.</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="fr-stripe">
+    <span style="background:#002395;"></span>
+    <span style="background:#fff;opacity:.4"></span>
+    <span style="background:#ED2939;"></span>
+  </div>
+  <div class="footer-links">
+    <a href="#">Accueil</a>
+    <a href="#">Opérations</a>
+    <a href="#">Structure</a>
+    <a href="#">Recrutement</a>
+    <a href="#">À Propos</a>
+    <a href="#">Discord</a>
+    <a href="#">TikTok</a>
+  </div>
+  <p><strong>DMFI</strong> — Détachement Militaire Français Indépendant &nbsp;|&nbsp; Faction BRM5 sur Roblox</p>
+  <p style="margin-top:6px;color:#3a5a7a;">Honneur · Discipline · France</p>
+</footer>
+
+<script>
+  // ── SIDEBAR ──
+  function openSidebar() {
+    document.getElementById('sidebar').classList.add('open');
+    document.getElementById('sidebarOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeSidebar() {
+    document.getElementById('sidebar').classList.remove('open');
+    document.getElementById('sidebarOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSidebar(); });
+
+  // ── CAROUSEL ──
+  let current = 0;
+  const slides = 4;
+  const track = document.getElementById('carouselTrack');
+  const dots = document.querySelectorAll('.carousel-dot');
+
+  function goTo(n) {
+    current = (n + slides) % slides;
+    track.style.transform = `translateX(-${current * 100}%)`;
+    dots.forEach((d, i) => d.classList.toggle('active', i === current));
+  }
+
+  document.getElementById('prevBtn').onclick = () => goTo(current - 1);
+  document.getElementById('nextBtn').onclick = () => goTo(current + 1);
+  dots.forEach(d => d.onclick = () => goTo(+d.dataset.i));
+
+  let autoplay = setInterval(() => goTo(current + 1), 4500);
+  track.parentElement.onmouseenter = () => clearInterval(autoplay);
+  track.parentElement.onmouseleave = () => { autoplay = setInterval(() => goTo(current + 1), 4500); };
+
+  // ── ACCORDION ──
+  function toggleAcc(id) {
+    const body   = document.getElementById(id + '-body');
+    const caret  = document.getElementById(id + '-caret');
+    const header = document.getElementById(id + '-header');
+    const isOpen = body.classList.contains('open');
+    body.classList.toggle('open', !isOpen);
+    caret.classList.toggle('open', !isOpen);
+    header.classList.toggle('open', !isOpen);
+  }
+</script>
+</body>
+</html>
