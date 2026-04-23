@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DMFI — Intranet Officiel</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Share+Tech+Mono&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-head">
+    <div class="sidebar-head-icon">DMFI</div>
+    <div class="sidebar-head-text">
+      <div class="sidebar-head-title">DMFI</div>
+      <div class="sidebar-head-sub">Détachement Militaire Français Indépendant</div>
+    </div>
+    <button class="sidebar-close" onclick="closeSidebar()">&#10005;</button>
+  </div>
+
+  <div class="sidebar-icons">
+    <button class="sidebar-icon-btn" title="Accueil">🏠</button>
+    <button class="sidebar-icon-btn" title="Personnel">👤</button>
+    <button class="sidebar-icon-btn" title="Opérations">🎯</button>
+    <button class="sidebar-icon-btn" title="Carte BRM5">🗺️</button>
+    <button class="sidebar-icon-btn" title="Armurerie">🔫</button>
+    <button class="sidebar-icon-btn" title="Paramètres">⚙️</button>
+    <button class="sidebar-icon-btn" title="Retour">↩️</button>
+  </div>
+
+  <div class="sidebar-section">Bien débuter</div>
+  <a href="#" class="sidebar-link">Présentation de la DMFI</a>
+  <a href="#" class="sidebar-link">Règlement intérieur</a>
+  <a href="#" class="sidebar-link">Rejoindre la faction</a>
+  <a href="#" class="sidebar-link">Créer une page membre</a>
+
+  <div class="sidebar-section">Opérations</div>
+  <a href="#" class="sidebar-link">Tableau des missions</a>
+  <a href="#" class="sidebar-link">Carte de Ronograd</a>
+  <a href="#" class="sidebar-link">Rapports d'opérations</a>
+  <a href="#" class="sidebar-link">Historique des batailles</a>
+
+  <div class="sidebar-section">Structure</div>
+  <a href="#" class="sidebar-link">État-Major</a>
+  <a href="#" class="sidebar-link">Unités d'infanterie</a>
+  <a href="#" class="sidebar-link">Unités spécialisées</a>
+  <a href="#" class="sidebar-link">Soutien logistique</a>
+  <a href="#" class="sidebar-link">Recrutement</a>
+
+  <div class="sidebar-section">Ressources</div>
+  <a href="#" class="sidebar-link">Armurerie &amp; Équipements</a>
+  <a href="#" class="sidebar-link">Guides tactiques</a>
+  <a href="#" class="sidebar-link">Annuaire du personnel</a>
+  <a href="#" class="sidebar-link">Médias &amp; TikTok</a>
+</aside>
+
+<div class="topbar">
+  <span>DMFI — RÉSEAU INTERNE SÉCURISÉ</span>
+  <div class="fr-flag">
+    <span class="bl"></span><span class="wh"></span><span class="rd"></span>
+  </div>
+  <strong>DÉTACHEMENT MILITAIRE FRANÇAIS INDÉPENDANT</strong>
+  <span>ACCÈS RÉSERVÉ AUX MEMBRES</span>
+</div>
+
+<nav>
+  <div class="nav-hamburger" onclick="openSidebar()">&#9776;</div>
+  <a class="nav-logo" href="index.html">
+    <div class="nav-logo-icon">DMFI</div>
+    <div class="nav-logo-text">
+      <div class="nav-logo-title">D.M.F.I.</div>
+      <div class="nav-logo-sub">Détachement Militaire Français Indépendant</div>
+    </div>
+  </a>
+  <div class="nav-links">
+    <a href="index.html" class="active">Accueil</a>
+    <a href="#">Opérations</a>
+    <a href="#">Structure</a>
+    <a href="#">Recrutement</a>
+    <a href="#">À Propos</a>
+  </div>
+  <div class="nav-icons">
+    <button title="Rechercher">🔍</button>
+    <button title="Mon profil">👤</button>
+  </div>
+</nav>
+
+<div class="carousel">
+  <div class="carousel-track" id="carouselTrack">
+    <div class="carousel-slide">
+      <svg width="100%" height="100%" viewBox="0 0 1200 240" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+        <rect width="1200" height="240" fill="#060f1a"/>
+        <defs><linearGradient id="g1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#0d47a1"/><stop offset="100%" stop-color="#1565c0" stop-opacity=".3"/></linearGradient></defs>
+        <rect width="1200" height="240" fill="url(#g1)" opacity=".9"/>
+        <rect x="0" y="0" width="10" height="240" fill="#002395" opacity=".5"/>
+        <rect x="10" y="0" width="10" height="240" fill="#ffffff" opacity=".2"/>
+        <rect x="20" y="0" width="10" height="240" fill="#ED2939" opacity=".4"/>
+        <text x="600" y="105" text-anchor="middle" fill="rgba(255,255,255,0.07)" font-family="Rajdhani,sans-serif" font-size="72" font-weight="700" letter-spacing="18">DMFI</text>
+        <text x="600" y="148" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="Rajdhani,sans-serif" font-size="22" font-weight="700" letter-spacing="6">DÉTACHEMENT MILITAIRE FRANÇAIS INDÉPENDANT</text>
+        <text x="600" y="178" text-anchor="middle" fill="rgba(255,193,7,0.5)" font-family="Share Tech Mono,monospace" font-size="13" letter-spacing="5">HONNEUR — DISCIPLINE — FRANCE</text>
+      </svg>
+    </div>
+    <div class="carousel-slide">
+      <svg width="100%" height="100%" viewBox="0 0 1200 240" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+        <rect width="1200" height="240" fill="#07101e"/>
+        <text x="600" y="127" text-anchor="middle" fill="rgba(255,193,7,.5)" font-family="Rajdhani,sans-serif" font-size="28" font-weight="700" letter-spacing="2">DMFI</text>
+      </svg>
+    </div>
+  </div>
+  <button class="carousel-btn prev" id="prevBtn">&#8249;</button>
+  <button class="carousel-btn next" id="nextBtn">&#8250;</button>
+  <div class="carousel-dots" id="carouselDots">
+    <div class="carousel-dot active" data-i="0"></div>
+    <div class="carousel-dot" data-i="1"></div>
+  </div>
+</div>
+
+<div class="quick-actions">
+  <a href="#" class="qa-btn"><span class="arrow">›</span> Tout savoir sur la DMFI</a>
+  <a href="#" class="qa-btn"><span class="arrow">›</span> Rejoindre la faction</a>
+  <a href="#" class="qa-btn"><span class="arrow">›</span> Consulter la carte</a>
+</div>
+
+<div class="tact-line"></div>
+
+<div class="page-wrap">
+
+  <div class="alert-band">
+    <span class="tag">STATUT</span>
+    DMFI opérationnelle — Recrutement ouvert
+  </div>
+
+  <div class="section-header">Page d'orientation — Personnel DMFI</div>
+
+  <div class="accordion">
+    <div class="accordion-header open" id="acc1-header" onclick="toggleAcc('acc1')">
+      Préambule <span class="caret open" id="acc1-caret">▼</span>
+    </div>
+    <div class="accordion-body open" id="acc1-body">
+      <h2>Bienvenue sur l'intranet de la DMFI !</h2>
+      <p>Bienvenue au sein du <strong>Détachement Militaire Français Indépendant</strong>.</p>
+    </div>
+  </div>
+
+  <div class="info-grid">
+    <div class="info-card">
+      <h3>🏢 Structure</h3>
+      <ul>
+        <li><a href="#">État-Major DMFI</a></li>
+        <li><a href="#">Recrutement</a></li>
+      </ul>
+    </div>
+    <div class="info-card">
+      <h3>📋 Ressources</h3>
+      <ul>
+        <li><a href="#">Carte de Ronograd</a></li>
+        <li><a href="#">Guides tactiques</a></li>
+      </ul>
+    </div>
+    <div class="info-card">
+      <h3>⚠️ Urgences</h3>
+      <ul>
+        <li>Discord #etat-major</li>
+        <li><a href="#">Signaler un incident</a></li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="fr-stripe">
+    <span style="background:#002395;"></span>
+    <span style="background:#fff;opacity:.4"></span>
+    <span style="background:#ED2939;"></span>
+  </div>
+  <p><strong>DMFI</strong> — Détachement Militaire Français Indépendant</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
