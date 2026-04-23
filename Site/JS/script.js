@@ -54,4 +54,4 @@ function toggleAcc(id) {
     body.classList.toggle('open', !isOpen);
     if (caret) caret.classList.toggle('open', !isOpen);
     if (header) header.classList.toggle('open', !isOpen);
-}
+} 
